@@ -44,6 +44,14 @@ test('Header ist Graphit und nutzt das helle Logo', async () => {
   assert.equal(header.querySelector('a[href="/"] svg rect').getAttribute('stroke'), '#FFFFFF')
 })
 
+test('Footer sitzt auf kurzen Seiten am unteren Fensterrand', async () => {
+  const doc = await documentFor('impressum/index.html')
+  for (const name of ['flex', 'min-h-dvh', 'flex-col']) {
+    assert.ok(doc.body.classList.contains(name), `body ohne ${name}`)
+  }
+  assert.ok(doc.querySelector('main').classList.contains('grow'), 'main wächst nicht')
+})
+
 test('Sprunglink zum Inhalt', async () => {
   const doc = await documentFor('index.html')
   assert.equal(doc.querySelector('body > a')?.getAttribute('href'), '#inhalt')

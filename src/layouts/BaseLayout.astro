@@ -43,14 +43,14 @@ const ogImage = new URL('/og-image.jpg', site.url).href
     <meta name="twitter:card" content="summary_large_image" />
     {jsonLd && <script type="application/ld+json" is:inline set:html={serializeJsonLd(localBusinessJsonLd(site))} />}
   </head>
-  <body class="bg-paper font-sans text-graphite antialiased">
+  <body class="flex min-h-dvh flex-col bg-paper font-sans text-graphite antialiased">
     <a
       href="#inhalt"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-graphite focus:px-4 focus:py-2 focus:text-paper"
       >Zum Inhalt springen</a
     >
     <Header />
-    <main id="inhalt">
+    <main id="inhalt" class="grow">
       <slot />
     </main>
     <Footer />
