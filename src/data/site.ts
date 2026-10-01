@@ -166,7 +166,7 @@ export const projects: Project[] = [
   },
   {
     id: 'crew',
-    label: 'Aktuelles Kundenprojekt · Bergfeld Software GmbH',
+    label: 'Aktuelles Kundenprojekt',
     highlight: true,
     title: 'Crew-App für eine Fluggesellschaft',
     text: 'iOS-App für Flugbesatzungen: Briefings, Dienstpläne und Dokumente – offline-fähig, weil an Bord nicht immer Netz da ist. Verteilt über den Apple Business Manager statt über den App Store.',
@@ -216,7 +216,7 @@ export const projects: Project[] = [
 ]
 
 export const clients =
-  'Gearbeitet für RTL Deutschland, Bergfeld Software, Cologne Broadcasting Center, addmore mobile, Henkel Loctite und Vodafone.'
+  'Gearbeitet für RTL Deutschland, Cologne Broadcasting Center, addmore mobile, Henkel Loctite und Vodafone.'
 
 export const about = {
   lead: 'Ich habe Apps für RTL gebaut, für einen Sportwagenhersteller und für eine Fluggesellschaft. Heute bringe ich diese Erfahrung dorthin, wo sie oft am meisten bewirkt: in Betriebe, die noch mit Excel-Listen und Zetteln arbeiten.',
