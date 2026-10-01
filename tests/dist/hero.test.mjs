@@ -10,6 +10,8 @@ test('Hero: genau eine H1 mit der Kernbotschaft und Mint-Punkt', async () => {
   assert.equal(headings.length, 1)
   assert.equal(text(headings[0]), 'Ihr Betrieb läuft auf Excel? Das geht einfacher')
   assert.equal(headings[0].querySelector('[data-dot]')?.getAttribute('aria-hidden'), 'true')
+  // Kernbotschaft nie automatisch trennen („Ex-cel?“ auf 375–393 px)
+  assert.ok(headings[0].classList.contains('hyphens-manual'), 'H1 wird automatisch getrennt')
 })
 
 test('Hero: dunkler Graphit-Einstieg ohne Tabellenraster und Formelzeile', async () => {
