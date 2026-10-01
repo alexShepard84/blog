@@ -19,9 +19,9 @@ test('Überschriften werden getrennt, Text bricht notfalls um', async () => {
   assert.match(css, /body\{[^}]*overflow-wrap:break-word/)
 })
 
-test('lange Titel in Ersatzflächen und Werdegang werden getrennt', async () => {
+test('lange Titel in Ersatzflächen werden getrennt', async () => {
   const doc = await documentFor('index.html')
-  for (const span of doc.querySelectorAll('[data-fallback] span:last-child, #ueber ol > li > span:last-child')) {
+  for (const span of doc.querySelectorAll('[data-fallback] span:last-child')) {
     assert.ok(span.classList.contains('hyphens-auto'), (span.textContent ?? '').trim())
   }
 })

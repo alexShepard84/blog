@@ -16,7 +16,6 @@ export type Project = {
   url?: string
 }
 export type Principle = { title: string; text: string }
-export type TimelineEntry = { year: string; text: string; current: boolean }
 export type FaqItem = { question: string; answer: string }
 
 export const site = {
@@ -228,17 +227,6 @@ export const principles: Principle[] = [
   { title: 'Ehrlich statt Buzzwords', text: 'Wenn sich KI oder eine eigene Software für Sie nicht lohnt, sage ich das.' },
   { title: 'Erst verstehen, dann bauen', text: 'Ich lerne Ihre Abläufe kennen, bevor ich Technik vorschlage.' },
   { title: 'Software, die bleibt', text: 'Getestet, sauber gebaut und so, dass sie auch in fünf Jahren noch wartbar ist.' },
-]
-
-export const timeline: TimelineEntry[] = [
-  { year: '2005', text: 'Selbstständig als Partner einer Webdesign-Agentur', current: false },
-  { year: '2011', text: 'Freelancer für Web-Anwendungen', current: false },
-  { year: '2014', text: 'Wechsel zu iOS und Swift', current: false },
-  { year: '2015', text: 'wetter.de und kochbar neu entwickelt', current: false },
-  { year: '2018', text: 'TVNOW, später RTL+ · Hackathon-Sieg', current: false },
-  { year: '2020', text: 'Lade-App für einen Sportwagenhersteller', current: false },
-  { year: '2024', text: 'Crew-App für eine Fluggesellschaft', current: false },
-  { year: 'Heute', text: 'Mobistro, KI-Beratung und Automatisierung', current: true },
 ]
 
 export const faq: FaqItem[] = [

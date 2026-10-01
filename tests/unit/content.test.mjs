@@ -23,10 +23,8 @@ test('fünf Projekte mit eindeutigen IDs in fester Reihenfolge', () => {
   )
 })
 
-test('genau ein Ablaufschritt und genau ein Werdegang-Eintrag sind aktuell', () => {
+test('genau ein Ablaufschritt ist aktiv', () => {
   assert.equal(content.processSteps.filter((step) => step.active).length, 1)
-  assert.equal(content.timeline.filter((entry) => entry.current).length, 1)
-  assert.equal(content.timeline.at(-1)?.current, true)
 })
 
 test('FAQ beantwortet fünf Fragen, eine davon zur Region', () => {

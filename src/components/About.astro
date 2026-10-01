@@ -1,6 +1,6 @@
 ---
 import SectionTitle from './SectionTitle.astro'
-import { about, principles, timeline } from '../data/site.ts'
+import { about, principles } from '../data/site.ts'
 ---
 
 <section id="ueber" class="border-b border-line bg-paper">
@@ -21,27 +21,6 @@ import { about, principles, timeline } from '../data/site.ts'
           ))
         }
       </ul>
-    </div>
-    <div class="flex flex-col gap-5">
-      <h3 class="m-0 text-[26px] font-bold tracking-[-0.01em]">Werdegang</h3>
-      <ol
-        class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(min(150px,100%),1fr))] border-l border-t border-line bg-white p-0"
-      >
-        {
-          timeline.map((entry) => (
-            <li
-              class:list={[
-                'flex flex-col gap-2.5 border-b border-r border-line p-4.5',
-                entry.current && 'outline-3 outline-offset-[-3px] outline-mint-dark',
-              ]}
-              aria-current={entry.current ? 'step' : undefined}
-            >
-              <span class:list={['font-mono text-[13px]', entry.current ? 'text-mint-text' : 'text-muted']}>{entry.year}</span>
-              <span class:list={['hyphens-auto text-base leading-snug', entry.current && 'font-semibold']}>{entry.text}</span>
-            </li>
-          ))
-        }
-      </ol>
     </div>
   </div>
 </section>
