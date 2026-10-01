@@ -1,5 +1,5 @@
 export type NavItem = { label: string; href: string }
-export type Service = { number: string; title: string; summary: string; points: string[] }
+export type Service = { number: string; title: string; short: string; summary: string; points: string[] }
 export type ProcessStep = { cell: string; title: string; text: string; active: boolean }
 export type ProjectId = 'mobistro' | 'crew' | 'botane' | 'rtlplus' | 'charging'
 export type Project = {
@@ -57,10 +57,8 @@ export const navigation: NavItem[] = [
 ]
 
 export const hero = {
-  formula: '=ABLÄUFE.VEREINFACHEN(Ihr Team; Software; KI)',
   greeting: 'Hallo, ich bin Alex – Softwareentwickler aus Limburg.',
-  headline: 'Ihr Betrieb läuft auf Excel? Das geht',
-  headlineMark: 'einfacher.',
+  headline: 'Ihr Betrieb läuft auf Excel? Das geht einfacher',
   intro:
     'Mit AppConcept entwickle ich Software, Apps und KI-Automatisierungen, die Tabellen, Copy-and-paste und Zettelwirtschaft ablösen – zugeschnitten auf die Abläufe Ihres Unternehmens.',
   primaryCta: 'Kostenloses Erstgespräch',
@@ -72,6 +70,7 @@ export const services: Service[] = [
   {
     number: '01',
     title: 'KI-Beratung',
+    short: 'KI-Beratung',
     summary:
       'Wo spart KI in Ihrem Betrieb wirklich Zeit – und wo nicht? Ich prüfe Ihre Abläufe und zeige konkrete, umsetzbare Ansatzpunkte.',
     points: [
@@ -83,6 +82,7 @@ export const services: Service[] = [
   {
     number: '02',
     title: 'Automatisierung und individuelle Software',
+    short: 'Automatisierung',
     summary:
       'Aus Excel-Listen und E-Mail-Ketten wird ein System, das Ihr Team gern benutzt und das mit Ihrem Betrieb wächst.',
     points: [
@@ -95,6 +95,7 @@ export const services: Service[] = [
   {
     number: '03',
     title: 'Web-Entwicklung',
+    short: 'Web-Entwicklung',
     summary: 'Websites und Web-Anwendungen: schnell, wartbar und auf Ihre Abläufe zugeschnitten.',
     points: [
       'Websites, die schnell laden und gefunden werden',
@@ -105,6 +106,7 @@ export const services: Service[] = [
   {
     number: '04',
     title: 'iOS-Entwicklung',
+    short: 'iOS-Entwicklung',
     summary:
       'Native Apps für iPhone, iPad und Apple TV in Swift und SwiftUI, seit 2014. Von der ersten Version bis zum laufenden Betrieb.',
     points: [

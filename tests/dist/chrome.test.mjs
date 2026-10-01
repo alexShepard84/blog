@@ -37,6 +37,13 @@ test('Logo-Link hat einen Namen, das SVG ist dekorativ', async () => {
   assert.equal(home.querySelector('svg').getAttribute('aria-hidden'), 'true')
 })
 
+test('Header ist Graphit und nutzt das helle Logo', async () => {
+  const doc = await documentFor('index.html')
+  const header = doc.querySelector('header')
+  assert.ok(header.classList.contains('bg-graphite'), 'Header ist nicht Graphit')
+  assert.equal(header.querySelector('a[href="/"] svg rect').getAttribute('stroke'), '#FFFFFF')
+})
+
 test('Sprunglink zum Inhalt', async () => {
   const doc = await documentFor('index.html')
   assert.equal(doc.querySelector('body > a')?.getAttribute('href'), '#inhalt')

@@ -38,6 +38,7 @@ test('404-Seite ist nicht indexierbar und führt zur Startseite', async () => {
   assert.equal(doc.querySelector('meta[name="robots"]')?.getAttribute('content'), 'noindex')
   assert.equal(doc.querySelector('link[rel="canonical"]'), null)
   assert.ok(doc.querySelector('main a[href="/"]'))
+  assert.equal(doc.querySelector('.raster-bg'), null)
 })
 
 test('Sitemap enthält Impressum und Datenschutz, aber keine 404', async () => {

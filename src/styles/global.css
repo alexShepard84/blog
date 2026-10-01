@@ -11,7 +11,6 @@
   --color-muted: #5e6368;
   --color-paper: #f3f2ee;
   --color-line: #d9d6cf;
-  --color-grid: #e3e0d9;
   --color-petrol: #0d2b2e;
   --color-petrol-ink: #c9d6d4;
   --color-petrol-muted: #9dbdb9;
@@ -28,13 +27,6 @@
 
 @utility stretch-heading {
   font-stretch: 108%;
-}
-
-@utility raster-bg {
-  background-image:
-    linear-gradient(var(--color-grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
-  background-size: 100px 44px;
 }
 
 @layer base {
