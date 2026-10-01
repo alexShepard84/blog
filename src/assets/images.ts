@@ -1,5 +1,6 @@
 import type { ImageMetadata } from 'astro'
 import type { ProjectId } from '../data/site.ts'
+import botane from './projects/botane-hero.jpg'
 import charging from './projects/charging-emobility.jpg'
 import crew from './projects/crew-aviation.jpg'
 import mobistro from './projects/mobistro-dashboard.png'
@@ -8,5 +9,6 @@ import mobistro from './projects/mobistro-dashboard.png'
 export const projectImages: Partial<Record<ProjectId, ImageMetadata>> = {
   mobistro,
   crew,
+  botane,
   charging,
 }
