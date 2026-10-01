@@ -31,3 +31,8 @@ nur ein Probelauf (Ordnerinhalt und geplante Änderungen im Log), und nichts
 wird verändert. Das schützt davor, mit einem falschen Pfad fremde Dateien zu
 löschen. Die `.htaccess` (404-Seite, Weiterleitung auf `www`, alte URLs)
 entsteht beim Build.
+
+Webroot unbekannt? Den Workflow „Build and deploy“ manuell mit der Option
+„Nur die Ordner des FTP-Kontos auflisten“ starten
+(`gh workflow run deploy.yml -f discover=true`). Er listet die Ordner und
+Fundstellen von `index.html` im Log auf und verändert nichts.
