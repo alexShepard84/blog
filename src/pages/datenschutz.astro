@@ -1,0 +1,71 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro'
+import { site } from '../data/site.ts'
+---
+
+<LegalLayout title="Datenschutzerklärung" description="Datenschutzerklärung der Website von AppConcept." path="/datenschutz/">
+  <p>Stand: Oktober 2026</p>
+
+  <h2>Verantwortlicher</h2>
+  <p>
+    {`${site.owner} · ${site.name}`}<br />
+    {`${site.address.street}, ${site.address.postalCode} ${site.address.locality}`}<br />
+    E-Mail: <a href={`mailto:${site.email}`}>{site.email}</a>
+  </p>
+
+  <h2>Das Wichtigste in Kürze</h2>
+  <p>
+    Diese Website setzt keine Cookies, verwendet kein Tracking und keine Analyse-Tools und bindet keine Inhalte von
+    Drittanbietern ein. Schriftarten werden vom selben Server geladen wie die Website.
+  </p>
+
+  <h2>Hosting bei GitHub Pages</h2>
+  <p>
+    Diese Website wird über GitHub Pages ausgeliefert, einen Dienst der GitHub, Inc., 88 Colin P. Kelly Jr. Street, San
+    Francisco, CA 94107, USA. Beim Aufruf der Website verarbeitet GitHub technisch notwendige Daten, insbesondere Ihre
+    IP-Adresse, Datum und Uhrzeit des Abrufs, die aufgerufene Seite sowie Angaben zu Browser und Betriebssystem. Das ist
+    nötig, um die Website auszuliefern und vor Angriffen zu schützen.
+  </p>
+  <p>
+    Rechtsgrundlage ist mein berechtigtes Interesse an einer sicheren und zuverlässigen Bereitstellung der Website (Art. 6
+    Abs. 1 lit. f DSGVO). Dabei können Daten in die USA übermittelt werden. GitHub ist unter dem EU-US Data Privacy
+    Framework zertifiziert; für zertifizierte Unternehmen gilt ein Angemessenheitsbeschluss der EU-Kommission (Art. 45
+    DSGVO). Mehr dazu in der
+    <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement">Datenschutzerklärung von GitHub</a>.
+  </p>
+
+  <h2>Kontakt per E-Mail</h2>
+  <p>
+    Wenn Sie mir eine E-Mail schreiben, verarbeite ich Ihre Angaben, um Ihre Anfrage zu beantworten – bei Anfragen zu
+    einem möglichen Auftrag auf Grundlage von Art. 6 Abs. 1 lit. b DSGVO, sonst auf Grundlage von Art. 6 Abs. 1 lit. f
+    DSGVO. Mein E-Mail-Postfach wird im Rahmen von Microsoft 365 von der Microsoft Ireland Operations Limited, One Microsoft
+    Place, South County Business Park, Leopardstown, Dublin 18, Irland, als Auftragsverarbeiter betrieben. Ich lösche Ihre
+    Anfrage, sobald sie erledigt ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
+  </p>
+
+  {
+    site.calUrl && (
+      <Fragment>
+        <h2>Terminbuchung über Cal.com</h2>
+        <p>
+          Für die Buchung eines Erstgesprächs verlinke ich auf Cal.com, einen Dienst der Cal.com, Inc., USA. Daten werden
+          erst verarbeitet, wenn Sie den Link aufrufen und dort einen Termin buchen. Es gilt die Datenschutzerklärung von
+          Cal.com.
+        </p>
+      </Fragment>
+    )
+  }
+
+  <h2>Ihre Rechte</h2>
+  <p>
+    Sie haben das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16 DSGVO), Löschung (Art. 17 DSGVO),
+    Einschränkung der Verarbeitung (Art. 18 DSGVO), Datenübertragbarkeit (Art. 20 DSGVO) und Widerspruch gegen
+    Verarbeitungen auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO (Art. 21 DSGVO). Schreiben Sie mir dazu einfach eine
+    E-Mail.
+  </p>
+  <p>
+    Sie können sich außerdem bei einer Datenschutz-Aufsichtsbehörde beschweren. Zuständig ist der Hessische Beauftragte
+    für Datenschutz und Informationsfreiheit, Postfach 3163, 65021 Wiesbaden,
+    <a href="https://datenschutz.hessen.de">datenschutz.hessen.de</a>.
+  </p>
+</LegalLayout>
