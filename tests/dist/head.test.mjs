@@ -14,7 +14,7 @@ test('Startseite: Canonical und Open Graph zeigen auf www.app-concept.de', async
   const doc = await documentFor('index.html')
   assert.equal(doc.querySelector('link[rel="canonical"]')?.getAttribute('href'), 'https://www.app-concept.de/')
   assert.equal(doc.querySelector('meta[property="og:url"]')?.getAttribute('content'), 'https://www.app-concept.de/')
-  assert.equal(doc.querySelector('meta[property="og:image"]')?.getAttribute('content'), 'https://www.app-concept.de/og-image.png')
+  assert.equal(doc.querySelector('meta[property="og:image"]')?.getAttribute('content'), 'https://www.app-concept.de/og-image.jpg')
   assert.equal(doc.querySelector('meta[name="robots"]'), null)
 })
 

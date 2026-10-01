@@ -33,7 +33,7 @@ export function localBusinessJsonLd(info: SiteInfo): LocalBusinessJsonLd {
     url: `${info.url}/`,
     email: info.email,
     telephone: info.phoneE164,
-    image: `${info.url}/og-image.png`,
+    image: `${info.url}/og-image.jpg`,
     address: {
       '@type': 'PostalAddress',
       streetAddress: info.address.street,

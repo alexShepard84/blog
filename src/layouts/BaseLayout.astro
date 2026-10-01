@@ -17,7 +17,7 @@ interface Props {
 
 const { title = seo.title, description = seo.description, path = '/', noindex = false, jsonLd = false } = Astro.props
 const canonical = new URL(path, site.url).href
-const ogImage = new URL('/og-image.png', site.url).href
+const ogImage = new URL('/og-image.jpg', site.url).href
 ---
 
 <!doctype html>

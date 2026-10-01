@@ -1,6 +1,7 @@
-// Erzeugt public/apple-touch-icon.png und public/og-image.png aus den
+// Erzeugt public/apple-touch-icon.png und public/og-image.jpg aus den
 // Logo-SVGs und dem Porträt. Nach Änderungen am Logo oder Porträt:
-// `npm run images` ausführen und beide PNGs committen.
+// `npm run images` ausführen und beide Dateien committen. Das OG-Bild ist ein
+// JPEG unter 300 KB, weil Messenger größere Vorschaubilder oft weglassen.
 import { readFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import sharp from 'sharp'
@@ -29,7 +30,7 @@ await sharp({ create: { width: 1200, height: 630, channels: 4, background: GRAPH
     { input: ogIcon, top: 195, left: 170 },
     { input: ogPortrait, top: 0, left: 740 },
   ])
-  .png()
-  .toFile(path('public/og-image.png'))
+  .jpeg({ quality: 85, mozjpeg: true })
+  .toFile(path('public/og-image.jpg'))
 
-console.log('apple-touch-icon.png und og-image.png erzeugt')
+console.log('apple-touch-icon.png und og-image.jpg erzeugt')
