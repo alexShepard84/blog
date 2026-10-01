@@ -1,0 +1,15 @@
+---
+import { site } from '../data/site.ts'
+
+const year = new Date().getFullYear()
+---
+
+<footer class="bg-graphite text-graphite-ink">
+  <div class="mx-auto flex max-w-300 flex-wrap items-center gap-x-8 gap-y-4 px-5 py-8 font-mono text-[13px] sm:px-8">
+    <address class="grow not-italic">
+      © {year} {site.name} · {site.owner} · {site.address.street} · {`${site.address.postalCode} ${site.address.locality}`}
+    </address>
+    <a href="/impressum/" class="underline-offset-4 hover:underline">Impressum</a>
+    <a href="/datenschutz/" class="underline-offset-4 hover:underline">Datenschutz</a>
+  </div>
+</footer>

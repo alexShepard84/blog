@@ -1,0 +1,47 @@
+---
+import { Picture } from 'astro:assets'
+import portrait from '../assets/portrait.jpg'
+import { hero, services, site } from '../data/site.ts'
+import { bookingHref, isExternal } from '../lib/contact.ts'
+
+const cta = bookingHref(site.calUrl, site.email)
+const ctaAttrs = isExternal(cta) ? { target: '_blank', rel: 'noopener' } : {}
+---
+
+<section id="top" class="bg-graphite text-paper">
+  <div
+    class="mx-auto grid max-w-300 items-end gap-x-16 gap-y-12 px-5 pt-12 sm:px-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:pt-14"
+  >
+    <div class="flex min-w-0 flex-col gap-8 lg:pb-24">
+      <p class="m-0 text-[22px] font-medium text-graphite-ink">{hero.greeting}</p>
+      <h1 class="stretch-display hyphens-manual m-0 text-[clamp(3rem,6.6vw,6.25rem)] font-extrabold leading-[0.96] tracking-[-0.045em] text-balance">
+        {hero.headline}<span data-dot aria-hidden="true" class="ml-[0.04em] inline-block size-[0.17em] rounded-full bg-mint"></span>
+      </h1>
+      <p class="m-0 max-w-[540px] text-xl leading-[1.55] text-graphite-ink">{hero.intro}</p>
+      <div class="flex flex-wrap items-center gap-7">
+        <a href={cta} {...ctaAttrs} class="rounded bg-mint px-7 py-4.5 text-[17px] font-bold text-graphite hover:bg-paper">{hero.primaryCta}</a>
+        <a href="/#projekte" class="text-[17px] underline underline-offset-[5px] hover:text-mint">{hero.secondaryCta}</a>
+      </div>
+    </div>
+    <div class="w-full max-w-[500px] justify-self-center lg:justify-self-end">
+      <Picture
+        src={portrait}
+        alt={hero.portraitAlt}
+        formats={['avif', 'webp']}
+        widths={[400, 600, 853]}
+        sizes="(min-width: 1024px) 500px, 100vw"
+        loading="eager"
+        fetchpriority="high"
+        class="block aspect-[5/6] w-full object-cover object-top"
+      />
+    </div>
+  </div>
+</section>
+<div class="border-b border-line bg-paper">
+  <ul
+    data-services-strip
+    class="mx-auto my-0 grid max-w-300 list-none grid-cols-[repeat(auto-fit,minmax(min(220px,100%),1fr))] gap-x-8 gap-y-3 px-5 py-5.5 text-base font-bold sm:px-8"
+  >
+    {services.map((service) => <li>{service.short}</li>)}
+  </ul>
+</div>

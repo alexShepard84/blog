@@ -1,0 +1,26 @@
+---
+import LegalLayout from '../layouts/LegalLayout.astro'
+import { site } from '../data/site.ts'
+---
+
+<LegalLayout title="Impressum" description="Impressum von AppConcept – Alexander Schäfer, Limburg an der Lahn." path="/impressum/">
+  <h2>Angaben gemäß § 5 DDG</h2>
+  <p>
+    {site.owner}<br />
+    {site.name}<br />
+    {site.address.street}<br />
+    {`${site.address.postalCode} ${site.address.locality}`}
+  </p>
+
+  <h2>Kontakt</h2>
+  <p>
+    Telefon: {site.phoneDisplay}<br />
+    E-Mail: <a href={`mailto:${site.email}`}>{site.email}</a>
+  </p>
+
+  <h2>Umsatzsteuer-ID</h2>
+  <p>Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz: {site.vatId}</p>
+
+  <h2>Verbraucherstreitbeilegung</h2>
+  <p>Ich bin nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+</LegalLayout>

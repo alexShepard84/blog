@@ -1,0 +1,25 @@
+---
+import SectionTitle from './SectionTitle.astro'
+import { site, teamBoost } from '../data/site.ts'
+import { mailtoHref } from '../lib/contact.ts'
+---
+
+<section id="teamverstaerkung" class="bg-graphite text-paper">
+  <div class="mx-auto grid max-w-300 items-start gap-x-16 gap-y-10 px-5 py-22 sm:px-8 lg:grid-cols-2">
+    <div class="flex flex-col gap-5">
+      <p class="m-0 font-mono text-[13px] text-mint">{teamBoost.label}</p>
+      <SectionTitle>{teamBoost.title}</SectionTitle>
+      <p class="m-0 text-[19px] leading-relaxed text-graphite-ink">{teamBoost.text}</p>
+    </div>
+    <div class="flex flex-col gap-7">
+      <ul class="m-0 flex list-none flex-col border-t border-graphite-line p-0">
+        {teamBoost.points.map((point) => <li class="border-b border-graphite-line py-4 text-lg">{point}</li>)}
+      </ul>
+      <a
+        href={mailtoHref(site.email, teamBoost.mailSubject)}
+        class="self-start rounded border-[1.5px] border-mint px-6 py-3.5 font-semibold text-mint hover:bg-mint hover:text-graphite"
+        >{teamBoost.cta}</a
+      >
+    </div>
+  </div>
+</section>

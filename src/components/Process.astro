@@ -1,0 +1,29 @@
+---
+import SectionTitle from './SectionTitle.astro'
+import { processSteps } from '../data/site.ts'
+---
+
+<section id="ablauf" class="border-b border-line bg-paper">
+  <div class="mx-auto flex max-w-300 flex-col gap-10 px-5 py-24 sm:px-8">
+    <SectionTitle>So arbeiten wir zusammen</SectionTitle>
+    <ol
+      class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] border-l border-t border-line bg-white p-0"
+    >
+      {
+        processSteps.map((step) => (
+          <li
+            class:list={[
+              'flex flex-col gap-3 border-b border-r border-line p-6',
+              step.active && 'outline-3 outline-offset-[-3px] outline-mint-dark',
+            ]}
+            data-active={step.active ? 'true' : undefined}
+          >
+            <span class="font-mono text-[13px] text-muted">{step.cell}</span>
+            <h3 class="m-0 text-xl font-bold">{step.title}</h3>
+            <p class="m-0 text-base leading-normal text-graphite-soft">{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
