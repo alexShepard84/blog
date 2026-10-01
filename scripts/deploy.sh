@@ -1,46 +1,55 @@
 #!/usr/bin/env bash
-# Lädt dist/ per rsync über SSH auf den Webspace bei dogado.
+# Lädt dist/ per FTPS (FTP mit TLS) auf den Webspace bei dogado.
 #
 # Erwartet:
-#   DEPLOY_SSH_KEY      privater Deploy-Schlüssel (nur für dieses Deployment)
-#   DEPLOY_KNOWN_HOSTS  Host-Schlüssel des Servers (Ausgabe von ssh-keyscan)
-#   DEPLOY_TARGET       user@host:/absoluter/pfad/zum/docroot/
-#   DRY_RUN=1           optional: nur anzeigen, was sich ändern würde
+#   DEPLOY_FTP_HOST      z. B. web277.dogado.net
+#   DEPLOY_FTP_USER      FTP-Benutzer
+#   DEPLOY_FTP_PASSWORD  FTP-Passwort (nur als Secret, nie im Repo)
+#   DEPLOY_FTP_DIR       absoluter Pfad zum Webroot, mit / am Ende
+#   DRY_RUN=1            optional: nur anzeigen, was sich ändern würde
 #
-# Schutz: Im Ziel muss die Datei .appconcept-site liegen. So kann ein falsch
-# gesetzter Pfad nie fremde Daten löschen, obwohl rsync mit --delete läuft.
+# Schutz: Fehlt im Ziel die Datei .appconcept-site, läuft nur ein Probelauf
+# (Inhalt des Ordners und geplante Änderungen) und das Skript bricht ab. So
+# kann ein falsch gesetzter Pfad nie fremde Daten löschen, obwohl mit
+# --delete gespiegelt wird.
+#
+# Zertifikat: dogado liefert für FTP ein Zertifikat auf *.dogado.de aus, der
+# Server heißt aber web277.dogado.net. Deshalb prüft openssl vorab, dass das
+# Zertifikat gültig ist und zu *.dogado.de gehört; lftp verschlüsselt dann
+# zwingend, prüft aber den Hostnamen nicht noch einmal.
 set -euo pipefail
 
-: "${DEPLOY_SSH_KEY:?DEPLOY_SSH_KEY fehlt}"
-: "${DEPLOY_KNOWN_HOSTS:?DEPLOY_KNOWN_HOSTS fehlt}"
-: "${DEPLOY_TARGET:?DEPLOY_TARGET fehlt}"
-
-if [[ ! "$DEPLOY_TARGET" =~ ^[^:@/]+@[^:/]+:/.*/$ ]]; then
-  echo "DEPLOY_TARGET muss die Form user@host:/absoluter/pfad/ haben (mit / am Ende)." >&2
+for name in DEPLOY_FTP_HOST DEPLOY_FTP_USER DEPLOY_FTP_PASSWORD DEPLOY_FTP_DIR; do
+  if [[ -z "${!name:-}" ]]; then
+    echo "$name fehlt." >&2
+    exit 1
+  fi
+done
+if [[ ! "$DEPLOY_FTP_DIR" =~ ^/.*/$ ]]; then
+  echo "DEPLOY_FTP_DIR muss ein absoluter Pfad mit / am Ende sein." >&2
   exit 1
 fi
 if [[ ! -f dist/index.html ]]; then
   echo "dist/ fehlt – zuerst npm run build ausführen." >&2
   exit 1
 fi
+command -v lftp >/dev/null || { echo "lftp fehlt." >&2; exit 1; }
+command -v openssl >/dev/null || { echo "openssl fehlt." >&2; exit 1; }
 
-workdir=$(mktemp -d)
-trap 'rm -rf "$workdir"' EXIT
-printf '%s\n' "$DEPLOY_SSH_KEY" > "$workdir/key"
-chmod 600 "$workdir/key"
-printf '%s\n' "$DEPLOY_KNOWN_HOSTS" > "$workdir/known_hosts"
-ssh_cmd="ssh -i $workdir/key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes -o UserKnownHostsFile=$workdir/known_hosts"
-
-remote_host=${DEPLOY_TARGET%%:*}
-remote_path=${DEPLOY_TARGET#*:}
-if ! $ssh_cmd "$remote_host" "test -f '${remote_path}.appconcept-site'"; then
-  echo "Im Ziel fehlt .appconcept-site – Zielverzeichnis nicht bestätigt, Abbruch." >&2
+if ! echo | openssl s_client -starttls ftp -connect "$DEPLOY_FTP_HOST:21" \
+  -verify_hostname deploy-check.dogado.de -verify_return_error >/dev/null 2>&1; then
+  echo "TLS-Zertifikat von $DEPLOY_FTP_HOST ist nicht gültig für *.dogado.de – Abbruch." >&2
   exit 1
 fi
 
-rsync -rlz --checksum --delete --itemize-changes \
-  --filter='P .appconcept-site' \
-  --filter='P .well-known/' \
-  ${DRY_RUN:+--dry-run} \
-  -e "$ssh_cmd" \
-  dist/ "$DEPLOY_TARGET"
+export LFTP_PASSWORD="$DEPLOY_FTP_PASSWORD"
+connect="set cmd:fail-exit true; set net:max-retries 2; set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate true; set ssl:check-hostname false; open --env-password -u '$DEPLOY_FTP_USER' 'ftp://$DEPLOY_FTP_HOST'; cd '$DEPLOY_FTP_DIR'"
+mirror="mirror --reverse --delete --verbose --exclude-glob .appconcept-site --exclude-glob .well-known/"
+
+if lftp -c "$connect; cls -1 .appconcept-site" >/dev/null 2>&1; then
+  lftp -c "$connect; $mirror ${DRY_RUN:+--dry-run} dist/ ./"
+else
+  echo "Im Ziel fehlt .appconcept-site – nur Probelauf, es wird nichts verändert." >&2
+  lftp -c "$connect; cls -la; $mirror --dry-run dist/ ./"
+  exit 1
+fi

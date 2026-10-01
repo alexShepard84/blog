@@ -27,10 +27,13 @@ jobs:
       - run: npm test
         env:
           FORBIDDEN_TERMS: ${{ secrets.FORBIDDEN_TERMS }}
-      - name: Deploy zu dogado (rsync über SSH)
+      - name: Deploy zu dogado (FTPS)
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         env:
-          DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
-          DEPLOY_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
-          DEPLOY_TARGET: ${{ secrets.DEPLOY_TARGET }}
-        run: scripts/deploy.sh
+          DEPLOY_FTP_HOST: ${{ secrets.DEPLOY_FTP_HOST }}
+          DEPLOY_FTP_USER: ${{ secrets.DEPLOY_FTP_USER }}
+          DEPLOY_FTP_PASSWORD: ${{ secrets.DEPLOY_FTP_PASSWORD }}
+          DEPLOY_FTP_DIR: ${{ secrets.DEPLOY_FTP_DIR }}
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+          scripts/deploy.sh

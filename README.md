@@ -16,16 +16,18 @@ Inhalte (Texte, Projekte, FAQ) stehen in `src/data/site.ts`.
 
 ## Deployment
 
-Jeder Push auf `main` wird von GitHub Actions geprüft und per `rsync` über SSH
-auf den Webspace bei dogado übertragen (`scripts/deploy.sh`). Benötigte
-Repo-Secrets:
+Jeder Push auf `main` wird von GitHub Actions geprüft und per FTPS (FTP mit
+TLS) auf den Webspace bei dogado übertragen (`scripts/deploy.sh`, `lftp
+mirror --delete`). Benötigte Repo-Secrets:
 
-- `DEPLOY_SSH_KEY` – privater Deploy-Schlüssel
-- `DEPLOY_KNOWN_HOSTS` – Host-Schlüssel des Servers (`ssh-keyscan`)
-- `DEPLOY_TARGET` – `user@host:/absoluter/pfad/zum/docroot/`
+- `DEPLOY_FTP_HOST` – z. B. `web277.dogado.net`
+- `DEPLOY_FTP_USER` – FTP-Benutzer
+- `DEPLOY_FTP_PASSWORD` – FTP-Passwort
+- `DEPLOY_FTP_DIR` – absoluter Pfad zum Webroot, mit `/` am Ende
 - `FORBIDDEN_TERMS` – private Sperrbegriffe für die Inhaltsprüfung, ein Begriff pro Zeile
 
-Im Zielverzeichnis muss die Datei `.appconcept-site` liegen, sonst bricht das
-Deployment ab. Das schützt davor, mit einem falschen Pfad fremde Dateien zu
+Im Zielverzeichnis muss die Datei `.appconcept-site` liegen. Fehlt sie, läuft
+nur ein Probelauf (Ordnerinhalt und geplante Änderungen im Log), und nichts
+wird verändert. Das schützt davor, mit einem falschen Pfad fremde Dateien zu
 löschen. Die `.htaccess` (404-Seite, Weiterleitung auf `www`, alte URLs)
 entsteht beim Build.
