@@ -16,19 +16,23 @@ test('Impressum nach § 5 DDG mit allen Pflichtangaben', async () => {
   assert.equal(doc.querySelector('link[rel="canonical"]')?.getAttribute('href'), 'https://www.app-concept.de/impressum/')
 })
 
-test('Datenschutz nennt GitHub Pages, USA-Übermittlung, E-Mail und Beschwerderecht', async () => {
+test('Datenschutz nennt dogado als Hoster in Deutschland, E-Mail und Beschwerderecht', async () => {
   const doc = await documentFor('datenschutz/index.html')
   const body = text(doc.body)
   assert.equal(text(doc.querySelector('h1')), 'Datenschutzerklärung')
   for (const phrase of [
-    'GitHub, Inc.',
-    'Data Privacy Framework',
+    'dogado GmbH',
+    'Antonio-Segni-Straße 11, 44263 Dortmund',
+    'Auftragsverarbeitung',
     'Art. 6 Abs. 1 lit. f DSGVO',
     'Microsoft',
     'keine Cookies',
     'Hessische Beauftragte für Datenschutz und Informationsfreiheit',
   ]) {
     assert.ok(body.includes(phrase), `fehlt: ${phrase}`)
+  }
+  for (const phrase of ['GitHub', 'Data Privacy Framework']) {
+    assert.equal(body.includes(phrase), false, `veraltet: ${phrase}`)
   }
   assert.equal(body.includes('Cal.com'), Boolean(site.calUrl))
 })
