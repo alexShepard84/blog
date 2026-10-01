@@ -1,0 +1,47 @@
+---
+import SectionTitle from './SectionTitle.astro'
+import { about, principles, timeline } from '../data/site.ts'
+---
+
+<section id="ueber" class="border-b border-line bg-paper">
+  <div class="mx-auto flex max-w-300 flex-col gap-18 px-5 py-26 sm:px-8">
+    <div class="grid items-start gap-x-18 gap-y-12 lg:grid-cols-2">
+      <div class="flex flex-col gap-6">
+        <SectionTitle>Über mich</SectionTitle>
+        <p class="m-0 text-[clamp(1.375rem,2.2vw,1.75rem)] font-medium leading-snug tracking-[-0.01em] text-pretty">{about.lead}</p>
+        <p class="m-0 text-lg leading-relaxed text-graphite-soft">{about.body}</p>
+      </div>
+      <ul class="m-0 flex list-none flex-col gap-7 p-0 pt-2">
+        {
+          principles.map((principle) => (
+            <li class="flex flex-col gap-2 border-t-2 border-graphite pt-4.5">
+              <h3 class="m-0 text-[22px] font-bold">{principle.title}</h3>
+              <p class="m-0 text-[17px] leading-relaxed text-graphite-soft">{principle.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="flex flex-col gap-5">
+      <h3 class="m-0 text-[26px] font-bold tracking-[-0.01em]">Werdegang</h3>
+      <ol
+        class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(min(150px,100%),1fr))] border-l border-t border-line bg-white p-0"
+      >
+        {
+          timeline.map((entry) => (
+            <li
+              class:list={[
+                'flex flex-col gap-2.5 border-b border-r border-line p-4.5',
+                entry.current && 'outline-3 outline-offset-[-3px] outline-mint-dark',
+              ]}
+              aria-current={entry.current ? 'step' : undefined}
+            >
+              <span class:list={['font-mono text-[13px]', entry.current ? 'text-mint-text' : 'text-muted']}>{entry.year}</span>
+              <span class:list={['text-base leading-snug', entry.current && 'font-semibold']}>{entry.text}</span>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
