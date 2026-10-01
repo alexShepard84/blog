@@ -3,15 +3,17 @@ import '@fontsource-variable/archivo/wdth.css'
 import '@fontsource-variable/jetbrains-mono'
 import '../styles/global.css'
 import { site, seo } from '../data/site.ts'
+import { localBusinessJsonLd, serializeJsonLd } from '../lib/seo.ts'
 
 interface Props {
   title?: string
   description?: string
   path?: string
   noindex?: boolean
+  jsonLd?: boolean
 }
 
-const { title = seo.title, description = seo.description, path = '/', noindex = false } = Astro.props
+const { title = seo.title, description = seo.description, path = '/', noindex = false, jsonLd = false } = Astro.props
 const canonical = new URL(path, site.url).href
 const ogImage = new URL('/og-image.png', site.url).href
 ---
@@ -37,6 +39,7 @@ const ogImage = new URL('/og-image.png', site.url).href
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    {jsonLd && <script type="application/ld+json" is:inline set:html={serializeJsonLd(localBusinessJsonLd(site))} />}
   </head>
   <body class="bg-paper font-sans text-graphite antialiased">
     <main id="inhalt">

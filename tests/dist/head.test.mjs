@@ -17,3 +17,12 @@ test('Startseite: Canonical und Open Graph zeigen auf www.app-concept.de', async
   assert.equal(doc.querySelector('meta[property="og:image"]')?.getAttribute('content'), 'https://www.app-concept.de/og-image.png')
   assert.equal(doc.querySelector('meta[name="robots"]'), null)
 })
+
+test('Startseite enthält genau ein gültiges LocalBusiness-JSON-LD', async () => {
+  const doc = await documentFor('index.html')
+  const scripts = [...doc.querySelectorAll('script[type="application/ld+json"]')]
+  assert.equal(scripts.length, 1)
+  const data = JSON.parse(scripts[0].textContent)
+  assert.equal(data['@type'], 'ProfessionalService')
+  assert.equal(data.address.addressLocality, 'Limburg an der Lahn')
+})
