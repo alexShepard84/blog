@@ -197,8 +197,8 @@ export const projects: Project[] = [
     text: 'iOS- und tvOS-App der Streaming-Plattform von RTL: über mehrere Jahre im agilen SAFe-Team, von TVNOW bis RTL+. Zwei Relaunches, die Neuentwicklung der App und laufend neue Features.',
     meta: ['iOS', 'tvOS', 'Swift', 'Combine', 'GraphQL'],
     tone: 'stone',
-    media: 'inset',
-    imageAlt: 'Die RTL+-App',
+    media: 'cover',
+    imageAlt: 'Symbolbild Streaming: Fernbedienung vor einem Fernseher',
     fallbackLabel: 'Streaming',
   },
   {
