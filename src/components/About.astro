@@ -37,7 +37,7 @@ import { about, principles, timeline } from '../data/site.ts'
               aria-current={entry.current ? 'step' : undefined}
             >
               <span class:list={['font-mono text-[13px]', entry.current ? 'text-mint-text' : 'text-muted']}>{entry.year}</span>
-              <span class:list={['text-base leading-snug', entry.current && 'font-semibold']}>{entry.text}</span>
+              <span class:list={['hyphens-auto text-base leading-snug', entry.current && 'font-semibold']}>{entry.text}</span>
             </li>
           ))
         }

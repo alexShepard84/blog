@@ -34,6 +34,16 @@
     scroll-padding-top: 1rem;
   }
 
+  body {
+    overflow-wrap: break-word;
+  }
+
+  h1,
+  h2,
+  h3 {
+    hyphens: auto;
+  }
+
   :focus-visible {
     outline: 3px solid var(--color-mint-dark);
     outline-offset: 3px;
