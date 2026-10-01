@@ -13,7 +13,8 @@
 # Schutz: Fehlt im Ziel die Datei .appconcept-site, läuft nur ein Probelauf
 # (Inhalt des Ordners und geplante Änderungen) und das Skript bricht ab. So
 # kann ein falsch gesetzter Pfad nie fremde Daten löschen, obwohl mit
-# --delete gespiegelt wird.
+# --delete gespiegelt wird. Dateien des Hosters (errordocs/, kontent-default.html,
+# .well-known/) bleiben immer unangetastet.
 #
 # Zertifikat: dogado liefert für FTP ein Zertifikat auf *.dogado.de aus, der
 # Server heißt aber web277.dogado.net. Deshalb prüft openssl vorab, dass das
@@ -64,7 +65,7 @@ if [[ -n "$discover" ]]; then
 fi
 
 connect="$login; cd '$DEPLOY_FTP_DIR'"
-mirror="mirror --reverse --delete --verbose --exclude-glob .appconcept-site --exclude-glob .well-known/"
+mirror="mirror --reverse --delete --verbose --exclude-glob .appconcept-site --exclude-glob .well-known/ --exclude-glob errordocs/ --exclude-glob kontent-default.html"
 
 if lftp -c "$connect; cls -1 .appconcept-site" >/dev/null 2>&1; then
   lftp -c "$connect; $mirror ${DRY_RUN:+--dry-run} dist/ ./"

@@ -51,3 +51,11 @@ test('der Erkundungsmodus braucht weder Zielordner noch dist/', () => {
   assert.match(stderr, /lftp fehlt/)
   assert.doesNotMatch(stderr, /DEPLOY_FTP_DIR|dist\//)
 })
+
+test('Dateien des Hosters werden beim Spiegeln nie gelöscht', async () => {
+  const { readFile } = await import('node:fs/promises')
+  const source = await readFile(script, 'utf8')
+  for (const pattern of ['.appconcept-site', '.well-known/', 'errordocs/', 'kontent-default.html']) {
+    assert.ok(source.includes(`--exclude-glob ${pattern}`), pattern)
+  }
+})
