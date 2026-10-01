@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets'
+import type { Project } from '../data/site.ts'
+import { projectImages } from '../assets/images.ts'
+
+interface Props {
+  project: Project
+}
+
+const { project } = Astro.props
+const image = projectImages[project.id]
+const tone = {
+  petrol: 'bg-petrol text-petrol-muted',
+  cool: 'bg-cool text-graphite-soft',
+  stone: 'bg-stone text-graphite-soft',
+}[project.tone]
+---
+
+{
+  image ? (
+    <div class:list={['flex aspect-[4/3] items-center justify-center overflow-hidden', tone, project.media === 'inset' && 'p-[6%]']}>
+      <Image
+        src={image}
+        alt={project.imageAlt}
+        widths={[480, 720, 960, 1200]}
+        sizes="(min-width: 1024px) 560px, 100vw"
+        class:list={[
+          project.media === 'cover'
+            ? 'size-full object-cover'
+            : 'h-auto max-h-full w-full rounded-[4px] border border-black/10 object-contain',
+        ]}
+      />
+    </div>
+  ) : (
+    <div aria-hidden="true" data-fallback class:list={['flex aspect-[4/3] flex-col justify-between p-8', tone]}>
+      <span class="font-mono text-[13px]">{project.fallbackLabel}</span>
+      <span class="stretch-display text-[clamp(2.5rem,5vw,4.5rem)] font-extrabold leading-none tracking-[-0.03em] opacity-60">
+        {project.title}
+      </span>
+    </div>
+  )
+}
