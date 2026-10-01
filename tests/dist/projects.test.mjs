@@ -45,7 +45,7 @@ test('BOTANÉ verlinkt die Website in neuem Tab', async () => {
   assert.match(link.getAttribute('rel'), /noopener/)
 })
 
-test('Kundenzeile unter den Projekten', async () => {
+test('keine Kundenzeile „Gearbeitet für“ mehr', async () => {
   const doc = await documentFor('index.html')
-  assert.match(text(doc.getElementById('projekte')), /Gearbeitet für RTL Deutschland, Bergfeld Software/)
+  assert.equal(text(doc.body).includes('Gearbeitet für'), false)
 })
