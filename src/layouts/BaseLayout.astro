@@ -1,0 +1,46 @@
+---
+import '@fontsource-variable/archivo/wdth.css'
+import '@fontsource-variable/jetbrains-mono'
+import '../styles/global.css'
+import { site, seo } from '../data/site.ts'
+
+interface Props {
+  title?: string
+  description?: string
+  path?: string
+  noindex?: boolean
+}
+
+const { title = seo.title, description = seo.description, path = '/', noindex = false } = Astro.props
+const canonical = new URL(path, site.url).href
+const ogImage = new URL('/og-image.png', site.url).href
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonical} />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#26292c" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body class="bg-paper font-sans text-graphite antialiased">
+    <main id="inhalt">
+      <slot />
+    </main>
+  </body>
+</html>
