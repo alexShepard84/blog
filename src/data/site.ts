@@ -215,9 +215,6 @@ export const projects: Project[] = [
   },
 ]
 
-export const clients =
-  'Gearbeitet für RTL Deutschland, Cologne Broadcasting Center, addmore mobile, Henkel Loctite und Vodafone.'
-
 export const about = {
   lead: 'Ich habe Apps für RTL gebaut, für einen Sportwagenhersteller und für eine Fluggesellschaft. Heute bringe ich diese Erfahrung dorthin, wo sie oft am meisten bewirkt: in Betriebe, die noch mit Excel-Listen und Zetteln arbeiten.',
   body: 'Selbstständig bin ich seit 2005 – angefangen als Partner einer Webdesign-Agentur, seit 2014 mit Schwerpunkt iOS und Swift. Ich sitze in Limburg an der Lahn und arbeite für Unternehmen im Kreis Limburg-Weilburg, im Rhein-Main-Gebiet und remote in ganz Deutschland.',
