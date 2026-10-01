@@ -2,7 +2,7 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { access } from 'node:fs/promises'
 import { distFile, documentFor, htmlFiles, text } from '../helpers/dist.mjs'
-import { FORBIDDEN_TEXT, PLACEHOLDER_PATTERN } from '../helpers/forbidden.mjs'
+import { PLACEHOLDER_PATTERN, findForbidden } from '../helpers/forbidden.mjs'
 import { legacyRedirects } from '../../src/data/redirects.ts'
 
 const legacy = new Set(Object.keys(legacyRedirects).map((path) => `${path}/index.html`))
@@ -34,7 +34,7 @@ test('kein Seitentext enthält private Angaben oder Platzhalter', async () => {
     const doc = await documentFor(page)
     const description = doc.querySelector('meta[name="description"]')?.getAttribute('content') ?? ''
     const visible = `${doc.title} ${description} ${text(doc.body)}`
-    for (const word of FORBIDDEN_TEXT) assert.equal(visible.includes(word), false, `${page}: „${word}“`)
+    assert.deepEqual(findForbidden(visible), [], page)
     assert.doesNotMatch(visible, PLACEHOLDER_PATTERN, page)
   }
 })

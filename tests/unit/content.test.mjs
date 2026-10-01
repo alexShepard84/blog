@@ -1,11 +1,11 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import * as content from '../../src/data/site.ts'
-import { FORBIDDEN_TEXT, PLACEHOLDER_PATTERN } from '../helpers/forbidden.mjs'
+import { PLACEHOLDER_PATTERN, findForbidden } from '../helpers/forbidden.mjs'
 
 test('Inhalte enthalten keine privaten Angaben oder Platzhalter', () => {
   const all = JSON.stringify(content)
-  for (const word of FORBIDDEN_TEXT) assert.equal(all.includes(word), false, `verboten: ${word}`)
+  assert.deepEqual(findForbidden(all), [])
   assert.doesNotMatch(all, PLACEHOLDER_PATTERN)
 })
 

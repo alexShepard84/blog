@@ -28,6 +28,8 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm test
+        env:
+          FORBIDDEN_TERMS: ${{ secrets.FORBIDDEN_TERMS }}
       - uses: actions/upload-pages-artifact@v5
         if: github.event_name != 'pull_request'
         with:
