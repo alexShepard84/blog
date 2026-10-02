@@ -58,12 +58,12 @@ test('Sprunglink zum Inhalt', async () => {
   assert.ok(doc.getElementById('inhalt'))
 })
 
-test('Footer nennt Name, Adresse und Rechtliches', async () => {
+test('Footer verlinkt Leistungen und Rechtliches und nennt Name und Adresse', async () => {
   const doc = await documentFor('index.html')
   const footer = doc.querySelector('footer')
   assert.match(text(footer), /Alexander Schäfer/)
   assert.match(text(footer), /Nauheimer Weg 9a/)
   assert.match(text(footer), /65550 Limburg an der Lahn/)
   const hrefs = [...footer.querySelectorAll('a')].map((a) => a.getAttribute('href'))
-  assert.deepEqual(hrefs, ['/impressum/', '/datenschutz/'])
+  assert.deepEqual(hrefs, ['/ios-freelancer/', '/software-automatisierung/', '/impressum/', '/datenschutz/'])
 })

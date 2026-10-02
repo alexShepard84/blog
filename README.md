@@ -13,6 +13,26 @@ Statische Seite mit [Astro](https://astro.build), gehostet bei dogado.
     npm run images     # Touch-Icon und OG-Bild neu erzeugen (danach committen)
 
 Inhalte (Texte, Projekte, FAQ) stehen in `src/data/site.ts`.
+Die Leistungsseiten `/ios-freelancer/` und `/software-automatisierung/`
+verwenden `src/data/service-pages.ts` und ein gemeinsames Seitenlayout.
+
+## SEO und Cache-Prüfung
+
+Der Build ergänzt beide Leistungsseiten automatisch in der Sitemap.
+HTML, Sitemap und robots.txt werden revalidiert. Öffentliche Assets ohne
+Inhalts-Hash erhalten eine Stunde Cache-Laufzeit; die versionierten Dateien
+unter `/_astro/` erhalten über eine eigene `.htaccess` ein Jahr mit
+`immutable`. Fehlerantworten erhalten diesen Jahrescache nicht.
+
+Die HTTP-Prüfung benötigt Apache mit `mod_headers`/`mod_rewrite` oder die
+veröffentlichte Website. `astro preview` wertet `.htaccess` nicht aus:
+
+    SEO_BASE_URL=http://127.0.0.1:4328 node --test tests/http/cache.test.mjs
+
+Nach einem Deployment denselben Test mit `SEO_BASE_URL=https://www.app-concept.de`
+ausführen. Ein vorgeschalteter Webserver kann statische Assets direkt
+ausliefern; deshalb ersetzt die lokale Apache-Prüfung nicht die Kontrolle
+der Header bei dogado.
 
 ## Deployment
 

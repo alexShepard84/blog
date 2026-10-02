@@ -5,11 +5,17 @@ const year = new Date().getFullYear()
 ---
 
 <footer class="bg-graphite text-graphite-ink">
-  <div class="mx-auto flex max-w-300 flex-wrap items-center gap-x-8 gap-y-4 px-5 py-8 font-mono text-[13px] sm:px-8">
-    <address class="grow not-italic">
-      © {year} {site.name} · {site.owner} · {site.address.street} · {`${site.address.postalCode} ${site.address.locality}`}
-    </address>
-    <a href="/impressum/" class="underline-offset-4 hover:underline">Impressum</a>
-    <a href="/datenschutz/" class="underline-offset-4 hover:underline">Datenschutz</a>
+  <div class="mx-auto max-w-300 px-5 py-8 sm:px-8">
+    <nav aria-label="Leistungen im Footer" class="mb-5 flex flex-wrap gap-x-8 gap-y-1 text-base">
+      <a href="/ios-freelancer/" class="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-mint">iOS-Freelancer</a>
+      <a href="/software-automatisierung/" class="inline-flex min-h-11 items-center underline underline-offset-4 hover:text-mint">Software & Automatisierung</a>
+    </nav>
+    <div class="flex flex-wrap items-center gap-x-8 gap-y-4 border-t border-graphite-line pt-6 font-mono text-[13px]">
+      <address class="grow not-italic">
+        © {year} {site.name} · {site.owner} · {site.address.street} · {`${site.address.postalCode} ${site.address.locality}`}
+      </address>
+      <a href="/impressum/" class="underline-offset-4 hover:underline">Impressum</a>
+      <a href="/datenschutz/" class="underline-offset-4 hover:underline">Datenschutz</a>
+    </div>
   </div>
 </footer>
