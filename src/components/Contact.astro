@@ -1,11 +1,10 @@
 ---
 import { contact, site } from '../data/site.ts'
+import FirstContact from './FirstContact.astro'
 import { bookingHref, isExternal } from '../lib/contact.ts'
 
 const cta = bookingHref(site.calUrl, site.email)
 const external = isExternal(cta)
-const ctaAttrs = external ? { target: '_blank', rel: 'noopener' } : {}
-const ctaLabel = external ? contact.ctaBooking : contact.ctaMail
 ---
 
 <section id="kontakt" class="bg-petrol text-paper">
@@ -14,10 +13,12 @@ const ctaLabel = external ? contact.ctaBooking : contact.ctaMail
       {contact.title}
     </h2>
     <p class="m-0 max-w-[680px] text-xl leading-relaxed text-petrol-ink">{contact.text}</p>
+    {!external && <p class="m-0 max-w-[65ch] text-base leading-relaxed text-petrol-ink">{contact.prompt}</p>}
     <div class="flex flex-wrap items-center gap-7">
-      <a href={cta} {...ctaAttrs} class="rounded bg-mint px-6.5 py-4 font-bold text-petrol hover:bg-paper">{ctaLabel}</a>
+      <FirstContact />
       <a href={`mailto:${site.email}`} class="font-mono text-[15px] text-paper underline underline-offset-4 [overflow-wrap:anywhere]">{site.email}</a>
     </div>
+    <p class="m-0 text-sm text-petrol-ink">{external ? contact.bookingHint : contact.mailHint}</p>
     <p class="m-0 font-mono text-[13px] text-petrol-ink">{contact.regionLine}</p>
   </div>
 </section>

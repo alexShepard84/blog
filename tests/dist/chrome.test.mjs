@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { documentFor, text } from '../helpers/dist.mjs'
-import { site } from '../../src/data/site.ts'
+import { contact, site } from '../../src/data/site.ts'
 import { bookingHref } from '../../src/lib/contact.ts'
 
 const sections = ['/#leistungen', '/#projekte', '/#ueber', '/#faq']
@@ -14,7 +14,7 @@ test('Header verlinkt alle Abschnitte', async () => {
 
 test('Header-CTA führt zum Erstgespräch (Cal.com oder E-Mail)', async () => {
   const doc = await documentFor('index.html')
-  const ctas = [...doc.querySelectorAll('header a')].filter((a) => text(a) === 'Erstgespräch vereinbaren')
+  const ctas = [...doc.querySelectorAll('header a')].filter((a) => text(a) === (site.calUrl ? contact.ctaBooking : contact.ctaMail))
   assert.equal(ctas.length, 2)
   for (const cta of ctas) assert.equal(cta.getAttribute('href'), bookingHref(site.calUrl, site.email))
 })

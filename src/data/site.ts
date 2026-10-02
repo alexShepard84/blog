@@ -1,6 +1,6 @@
 export type NavItem = { label: string; href: string }
-export type Service = { number: string; title: string; short: string; summary: string; points: string[] }
-export type ProcessStep = { cell: string; title: string; text: string; active: boolean }
+export type Service = { number: string; title: string; summary: string; points: string[] }
+export type ProcessStep = { cell: string; title: string; text: string }
 export type ProjectId = 'mobistro' | 'crew' | 'botane' | 'rtlplus' | 'charging'
 export type Project = {
   id: ProjectId
@@ -15,7 +15,6 @@ export type Project = {
   fallbackLabel: string
   url?: string
 }
-export type Principle = { title: string; text: string }
 export type FaqItem = { question: string; answer: string }
 
 export const site = {
@@ -43,9 +42,9 @@ export const site = {
 export type SiteInfo = typeof site
 
 export const seo = {
-  title: 'Software, Apps & KI-Beratung in Limburg | AppConcept',
+  title: 'iOS-Freelancer & Software in Limburg | AppConcept',
   description:
-    'AppConcept – Alexander Schäfer aus Limburg an der Lahn: Software, Apps und KI-Automatisierung für Unternehmen im Kreis Limburg-Weilburg, im Rhein-Main-Gebiet und bundesweit.',
+    'Alexander Schäfer – iOS-Freelancer im Kreis Limburg-Weilburg. Apps, Web-Anwendungen, individuelle Software und KI-Beratung – vor Ort und bundesweit remote.',
 }
 
 export const navigation: NavItem[] = [
@@ -57,10 +56,9 @@ export const navigation: NavItem[] = [
 
 export const hero = {
   greeting: 'Hallo, ich bin Alex – Softwareentwickler aus Limburg.',
-  headline: 'Ihr Betrieb läuft auf Excel? Das geht einfacher',
+  headline: 'Mobile Apps & Web',
   intro:
-    'Mit AppConcept entwickle ich Software, Apps und KI-Automatisierungen, die Tabellen, Copy-and-paste und Zettelwirtschaft ablösen – zugeschnitten auf die Abläufe Ihres Unternehmens.',
-  primaryCta: 'Kostenloses Erstgespräch',
+    'Seit 2014 entwickle ich Apps für iPhone und iPad. Dazu kommen Websites und Web-Anwendungen für Unternehmen.',
   secondaryCta: 'Projekte ansehen',
   portraitAlt: 'Alexander Schäfer, Softwareentwickler aus Limburg an der Lahn',
 }
@@ -68,86 +66,85 @@ export const hero = {
 export const services: Service[] = [
   {
     number: '01',
-    title: 'KI-Beratung',
-    short: 'KI-Beratung',
+    title: 'iOS-Entwicklung',
     summary:
-      'Wo spart KI in Ihrem Betrieb wirklich Zeit – und wo nicht? Ich prüfe Ihre Abläufe und zeige konkrete, umsetzbare Ansatzpunkte.',
+      'Ich entwickle Apps für iPhone, iPad und Apple TV mit Swift und SwiftUI – als Verstärkung für Ihr Team oder für ein eigenständiges Projekt.',
     points: [
-      'Prozess-Check: Wo geht heute Zeit verloren?',
-      'Anwendungsfälle mit ehrlicher Einschätzung von Aufwand und Nutzen',
-      'Prototyp, bevor Sie investieren',
+      'Neuentwicklung oder Übernahme bestehender Apps',
+      'App-Architektur und automatisierte Tests',
+      'Veröffentlichung im App Store oder interne Verteilung im Unternehmen',
     ],
   },
   {
     number: '02',
-    title: 'Automatisierung und individuelle Software',
-    short: 'Automatisierung',
-    summary:
-      'Aus Excel-Listen und E-Mail-Ketten wird ein System, das Ihr Team gern benutzt und das mit Ihrem Betrieb wächst.',
-    points: [
-      'Eigene Web-App statt Excel-Listen',
-      'Angebote, Termine und Verfügbarkeiten automatisch',
-      'Anbindung an Ihre vorhandenen Tools',
-      'KI-Assistenten für wiederkehrende Aufgaben',
-    ],
-  },
-  {
-    number: '03',
     title: 'Web-Entwicklung',
-    short: 'Web-Entwicklung',
-    summary: 'Websites und Web-Anwendungen: schnell, wartbar und auf Ihre Abläufe zugeschnitten.',
+    summary: 'Ich entwickle Websites für Unternehmen und Web-Anwendungen für die tägliche Arbeit.',
     points: [
-      'Websites, die schnell laden und gefunden werden',
-      'Web-Apps mit React und Supabase',
+      'Ladezeiten und Auffindbarkeit verbessern',
+      'Web-Anwendungen entwickeln und erweitern',
       'DSGVO-konform umgesetzt',
     ],
   },
   {
-    number: '04',
-    title: 'iOS-Entwicklung',
-    short: 'iOS-Entwicklung',
+    number: '03',
+    title: 'Automatisierung und individuelle Software',
     summary:
-      'Native Apps für iPhone, iPad und Apple TV in Swift und SwiftUI, seit 2014. Von der ersten Version bis zum laufenden Betrieb.',
+      'Ich entwickle Anwendungen, die Daten aus Ihren Listen zusammenführen und wiederkehrende Arbeitsschritte übernehmen.',
     points: [
-      'Neuentwicklung oder Übernahme bestehender Apps',
-      'Clean Architecture und automatisierte Tests',
-      'App Store oder interne Verteilung über den Apple Business Manager',
+      'Daten zentral in einer Web-Anwendung verwalten',
+      'Angebote und Terminverwaltung automatisieren',
+      'Bestehende Programme über Schnittstellen verbinden',
+      'KI für wiederkehrende Aufgaben einsetzen',
+    ],
+  },
+  {
+    number: '04',
+    title: 'KI-Beratung',
+    summary:
+      'Wir schauen uns eine Aufgabe genauer an: Welche Daten braucht die KI, was kann sie übernehmen und welcher Aufwand entsteht dabei?',
+    points: [
+      'Wiederkehrende Aufgaben untersuchen',
+      'Aufwand, Kosten und Datenbedarf einschätzen',
+      'Anwendungsfälle mit einem Prototyp testen',
     ],
   },
 ]
 
 export const teamBoost = {
-  label: 'Teamverstärkung',
-  title: 'Sie haben schon ein Team?',
-  text: 'Dann verstärke ich es: als Senior iOS-Entwickler, remote oder vor Ort, in Scrum- oder SAFe-Teams. Mit Erfahrung aus Projekten bei RTL, im Automotive-Umfeld und in der Luftfahrt.',
+  title: 'Unterstützung für Ihr iOS-Team',
+  text: 'Ich unterstütze bestehende Entwicklungsteams als Senior iOS-Entwickler. Ich arbeite remote oder vor Ort und kenne die Zusammenarbeit in Scrum- und SAFe-Teams.',
   points: [
     'Feature-Entwicklung und Architektur',
-    'Code-Reviews, Tests und Qualität',
+    'Code-Reviews und automatisierte Tests',
     'Übernahme und Modernisierung bestehender Apps',
   ],
   cta: 'Verfügbarkeit anfragen',
   mailSubject: 'Anfrage Teamverstärkung',
 }
 
+export const automationIntro = {
+  question: 'Ihr Betrieb läuft auf Excel?',
+  answer: 'Das geht einfacher.',
+  context: 'Aufträge abtippen, Daten zwischen Listen kopieren, Informationen aus E-Mails zusammensuchen: Das kostet Zeit.',
+  approach: 'Ich verbinde Ihre Daten und automatisiere wiederkehrende Arbeitsschritte. KI kann dabei zum Beispiel Dokumente auslesen oder Anfragen vorsortieren.',
+}
+
 export const processSteps: ProcessStep[] = [
-  { cell: 'A1', title: 'Erstgespräch', text: 'Kostenlos und unverbindlich: Sie erzählen, wo es hakt.', active: false },
+  { cell: 'A1', title: 'Erstgespräch', text: 'Sie erzählen mir von Ihrem Vorhaben: eine neue Anwendung, die Weiterentwicklung einer App oder Unterstützung für Ihr Team.' },
   {
     cell: 'B1',
     title: 'Analyse und Konzept',
-    text: 'Ich schaue mir Ihre Abläufe an und schlage eine Lösung mit klarem Umfang vor.',
-    active: false,
+    text: 'Wir legen fest, was die Anwendung leisten soll. Darauf basieren mein Vorschlag und das Angebot.',
   },
   {
     cell: 'C1',
     title: 'Umsetzung',
-    text: 'In kurzen Schritten. Sie sehen früh, was entsteht, und entscheiden mit.',
-    active: false,
+    text: 'Während der Entwicklung zeige ich Ihnen Zwischenstände. So können Sie früh ausprobieren, ob die Anwendung zu Ihrer Arbeit passt.',
   },
   {
     cell: 'D1',
-    title: 'Betrieb und Weiterentwicklung',
-    text: 'Ihre Lösung läuft – und wächst mit, wenn sich Ihr Betrieb verändert.',
-    active: true,
+    title: 'Wartung und Weiterentwicklung',
+    text: 'Nach dem Start kümmere ich mich um Wartung und weitere Anpassungen.',
   },
 ]
 
@@ -163,6 +160,7 @@ export const projects: Project[] = [
     media: 'inset',
     imageAlt: 'Dashboard der Mobistro-Web-App',
     fallbackLabel: 'Gastronomie',
+    url: 'https://mobistro.app',
   },
   {
     id: 'crew',
@@ -216,29 +214,23 @@ export const projects: Project[] = [
 ]
 
 export const about = {
-  lead: 'Ich habe Apps für RTL gebaut, für einen Sportwagenhersteller und für eine Fluggesellschaft. Heute bringe ich diese Erfahrung dorthin, wo sie oft am meisten bewirkt: in Betriebe, die noch mit Excel-Listen und Zetteln arbeiten.',
-  body: 'Selbstständig bin ich seit 2005 – angefangen als Partner einer Webdesign-Agentur, seit 2014 mit Schwerpunkt iOS und Swift. Ich sitze in Limburg an der Lahn und arbeite für Unternehmen im Kreis Limburg-Weilburg, im Rhein-Main-Gebiet und remote in ganz Deutschland.',
+  lead: 'Ich bin seit 2005 selbstständig. Angefangen habe ich als Partner einer Webdesign-Agentur; seit 2014 liegt mein Schwerpunkt auf iOS-Entwicklung. Zu meinen Projekten gehören Apps für RTL, einen Sportwagenhersteller und eine Fluggesellschaft.',
+  body: 'Heute entwickle ich außerdem individuelle Software für kleinere Unternehmen. Ich arbeite von Limburg aus: im Kreis Limburg-Weilburg und im Rhein-Main-Gebiet auch bei Ihnen vor Ort, sonst remote.',
 }
-
-export const principles: Principle[] = [
-  { title: 'Ehrlich statt Buzzwords', text: 'Wenn sich KI oder eine eigene Software für Sie nicht lohnt, sage ich das.' },
-  { title: 'Erst verstehen, dann bauen', text: 'Ich lerne Ihre Abläufe kennen, bevor ich Technik vorschlage.' },
-  { title: 'Software, die bleibt', text: 'Getestet, sauber gebaut und so, dass sie auch in fünf Jahren noch wartbar ist.' },
-]
 
 export const faq: FaqItem[] = [
   {
     question: 'Arbeiten Sie auch mit kleinen Unternehmen?',
-    answer: 'Ja. Gerade kleine und mittlere Betriebe merken schnell, wenn Excel-Listen und Handarbeit wegfallen.',
+    answer: 'Ja. Das Angebot richtet sich auch an kleine und mittlere Unternehmen.',
   },
   {
     question: 'Muss ich mich mit Technik auskennen?',
-    answer: 'Nein. Sie kennen Ihre Abläufe, ich kümmere mich um die Technik. Wir sprechen über Ihre Arbeit, nicht über Frameworks.',
+    answer: 'Nein. Sie beschreiben, was Sie benötigen und wie Sie bisher arbeiten. Ich erkläre Ihnen die technischen Möglichkeiten.',
   },
   {
     question: 'Was kostet ein Projekt?',
     answer:
-      'Das hängt vom Projekt ab – je nachdem zum Festpreis oder nach Aufwand. Nach dem Erstgespräch bekommen Sie ein Angebot mit klarem Rahmen.',
+      'Das richtet sich nach dem Umfang. Ich rechne je nach Projekt zum Festpreis oder nach Aufwand ab. Vor der Umsetzung erhalten Sie ein Angebot.',
   },
   {
     question: 'Was passiert mit meinen Daten, wenn KI im Spiel ist?',
@@ -252,9 +244,12 @@ export const faq: FaqItem[] = [
 ]
 
 export const contact = {
-  title: 'Lassen Sie uns über Ihre Abläufe sprechen.',
-  text: 'Im kostenlosen Erstgespräch schauen wir gemeinsam, wo bei Ihnen Zeit verloren geht. Danach bekommen Sie eine kurze schriftliche Einschätzung, wo sich Software oder KI lohnt – und wo nicht. Unverbindlich.',
+  title: 'Erzählen Sie mir von Ihrem Vorhaben.',
+  text: 'Im ersten Gespräch klären wir, was Sie brauchen und ob ich Sie dabei unterstützen kann.',
   ctaBooking: 'Termin buchen',
-  ctaMail: 'Erstgespräch per E-Mail anfragen',
+  ctaMail: 'Erstgespräch anfragen',
+  mailHint: 'Kostenlos & unverbindlich · Anfrage per E-Mail',
+  bookingHint: 'Kostenlos & unverbindlich · Termin online auswählen',
+  prompt: 'Schreiben Sie mir kurz, was Sie vorhaben oder welche Aufgabe Sie vereinfachen möchten.',
   regionLine: 'Vor Ort im Kreis Limburg-Weilburg und im Rhein-Main-Gebiet · bundesweit remote',
 }

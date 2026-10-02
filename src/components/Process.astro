@@ -6,21 +6,13 @@ import { processSteps } from '../data/site.ts'
 <section id="ablauf" class="border-b border-line bg-paper">
   <div class="mx-auto flex max-w-300 flex-col gap-10 px-5 py-24 sm:px-8">
     <SectionTitle>So arbeiten wir zusammen</SectionTitle>
-    <ol
-      class="m-0 grid list-none grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] border-l border-t border-line bg-white p-0"
-    >
+    <ol class="process-flow m-0 grid list-none gap-8 p-0 lg:grid-cols-4 lg:gap-0" data-motion-once>
       {
-        processSteps.map((step) => (
-          <li
-            class:list={[
-              'flex flex-col gap-3 border-b border-r border-line p-6',
-              step.active && 'outline-3 outline-offset-[-3px] outline-mint-dark',
-            ]}
-            data-active={step.active ? 'true' : undefined}
-          >
-            <span class="font-mono text-[13px] text-muted">{step.cell}</span>
+        processSteps.map((step, index) => (
+          <li class="process-step relative flex min-w-0 flex-col gap-3 pl-16 lg:pt-16 lg:pr-6 lg:pl-0" style={`--step-index: ${index}`}>
+            <span class="process-cell absolute top-0 left-0 z-1 flex size-11 items-center justify-center rounded border border-line bg-paper font-mono text-sm text-muted">{step.cell}</span>
             <h3 class="m-0 text-xl font-bold">{step.title}</h3>
-            <p class="m-0 text-base leading-normal text-graphite-soft">{step.text}</p>
+            <p class="m-0 text-base leading-relaxed text-graphite-soft">{step.text}</p>
           </li>
         ))
       }

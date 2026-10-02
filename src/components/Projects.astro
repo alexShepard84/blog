@@ -5,23 +5,27 @@ import { projects } from '../data/site.ts'
 ---
 
 <section id="projekte" class="border-b border-line bg-white">
-  <div class="mx-auto flex max-w-300 flex-col gap-22 px-5 py-28 sm:px-8">
+  <div class="mx-auto flex max-w-300 flex-col gap-12 px-5 pt-14 pb-20 sm:px-8 sm:pt-16 sm:pb-24">
     <SectionTitle>Projekte</SectionTitle>
+    <div class="flex flex-col gap-12">
     {
       projects.map((project, index) => (
-        <article class="grid items-center gap-x-16 gap-y-10 lg:grid-cols-2" data-project={project.id}>
+        <article class="grid items-center gap-x-12 gap-y-6 border-t border-line pt-8 lg:grid-cols-2" data-project={project.id}>
           <div class:list={['min-w-0', index % 2 === 1 && 'lg:order-last']}>
             <ProjectMedia project={project} />
           </div>
-          <div class="flex min-w-0 flex-col gap-5">
-            <p class:list={['m-0 font-mono text-[13px]', project.highlight ? 'text-mint-text' : 'text-muted']}>{project.label}</p>
-            <h3 class="stretch-heading m-0 text-[clamp(2.25rem,4vw,3.5rem)] font-extrabold leading-none tracking-[-0.03em] text-balance">
+          <div class="flex min-w-0 flex-col gap-4">
+            <h3 class="stretch-heading m-0 text-[clamp(1.75rem,2.5vw,2.25rem)] font-extrabold leading-tight tracking-[-0.025em] text-balance">
               {project.title}
             </h3>
-            <p class="m-0 text-[19px] leading-relaxed text-graphite-soft">{project.text}</p>
-            <p class="m-0 font-mono text-[13px] text-muted">{project.meta.join(' · ')}</p>
+            <p class:list={['m-0 text-sm', project.highlight ? 'text-mint-text' : 'text-muted']}>{project.label}</p>
+            <p class="m-0 text-lg leading-relaxed text-graphite-soft">{project.text}</p>
+            <details class="project-details text-sm text-muted">
+              <summary class="flex min-h-11 w-fit cursor-pointer items-center gap-2 underline underline-offset-4">Technische Details</summary>
+              <p class="mt-2 mb-0 leading-relaxed">{project.meta.join(' · ')}</p>
+            </details>
             {project.url && (
-              <a href={project.url} target="_blank" rel="noopener" class="self-start font-mono text-sm underline underline-offset-4">
+              <a href={project.url} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center self-start text-sm underline underline-offset-4">
                 {new URL(project.url).host} ansehen ↗
               </a>
             )}
@@ -29,5 +33,6 @@ import { projects } from '../data/site.ts'
         </article>
       ))
     }
+    </div>
   </div>
 </section>

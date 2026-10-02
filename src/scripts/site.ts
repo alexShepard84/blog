@@ -1,27 +1,39 @@
-// Abschnitte beim Scrollen dezent einblenden. Ohne JavaScript, bei einem
-// Skriptfehler oder bei reduzierter Bewegung bleibt alles sofort sichtbar:
-// Ausgeblendet wird nur unter .reveal-ready, und das setzt erst dieses Skript.
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+// Inhalte bleiben immer sichtbar. Nur die Verbindung des Arbeitsablaufs
+// wird beim ersten Eintritt animiert; ohne JS ist der Ablauf vollständig da.
+const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
+const motionTargets = document.querySelectorAll<HTMLElement>('[data-motion-once]')
 
-if (!reduceMotion && 'IntersectionObserver' in window) {
+if (!motionPreference.matches && 'IntersectionObserver' in window) {
   const observer = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
-        if (!entry.isIntersecting) continue
-        entry.target.classList.add('is-visible')
+        if (!entry.isIntersecting || motionPreference.matches) continue
+        const target = entry.target as HTMLElement
+        target.dataset.motion = 'played'
         observer.unobserve(entry.target)
       }
     },
-    { rootMargin: '0px 0px -10% 0px' },
+    { threshold: 0.15 },
   )
-  for (const section of document.querySelectorAll<HTMLElement>('main > section:not(#top)')) {
-    section.dataset.reveal = ''
-    observer.observe(section)
-  }
-  document.documentElement.classList.add('reveal-ready')
+  motionTargets.forEach((target) => observer.observe(target))
+  motionPreference.addEventListener('change', () => {
+    if (!motionPreference.matches) return
+    observer.disconnect()
+    motionTargets.forEach((target) => delete target.dataset.motion)
+  })
 }
 
-// Mobiles Menü nach Klick auf einen Eintrag schließen.
-for (const link of document.querySelectorAll<HTMLAnchorElement>('header details a')) {
-  link.addEventListener('click', () => link.closest('details')?.removeAttribute('open'))
+const mobileMenu = document.querySelector<HTMLDetailsElement>('header details')
+if (mobileMenu) {
+  for (const link of mobileMenu.querySelectorAll('a')) {
+    link.addEventListener('click', () => { mobileMenu.open = false })
+  }
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape' || !mobileMenu.open) return
+    mobileMenu.open = false
+    mobileMenu.querySelector('summary')?.focus()
+  })
+  document.addEventListener('click', (event) => {
+    if (event.target instanceof Node && !mobileMenu.contains(event.target)) mobileMenu.open = false
+  })
 }

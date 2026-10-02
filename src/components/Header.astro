@@ -1,10 +1,7 @@
 ---
 import LogoMark from './LogoMark.astro'
-import { navigation, site } from '../data/site.ts'
-import { bookingHref, isExternal } from '../lib/contact.ts'
-
-const cta = bookingHref(site.calUrl, site.email)
-const ctaAttrs = isExternal(cta) ? { target: '_blank', rel: 'noopener' } : {}
+import FirstContact from './FirstContact.astro'
+import { navigation } from '../data/site.ts'
 ---
 
 <header class="bg-graphite text-paper">
@@ -13,16 +10,11 @@ const ctaAttrs = isExternal(cta) ? { target: '_blank', rel: 'noopener' } : {}
       <LogoMark variant="light" />
       <span class="text-[21px] tracking-[-0.01em]"><span class="font-bold">App</span>Concept</span>
     </a>
-    <nav aria-label="Hauptnavigation" class="hidden grow justify-end gap-8 text-base md:flex">
+    <nav aria-label="Hauptnavigation" class="hidden grow justify-end gap-8 text-base lg:flex">
       {navigation.map((item) => <a href={item.href} class="hover:text-mint hover:underline">{item.label}</a>)}
     </nav>
-    <a
-      href={cta}
-      {...ctaAttrs}
-      class="hidden rounded border-[1.5px] border-paper px-5 py-3 text-[15px] font-semibold text-paper hover:bg-paper hover:text-graphite md:inline-flex"
-      >Erstgespräch vereinbaren</a
-    >
-    <details class="relative ml-auto md:hidden">
+    <div class="hidden lg:block"><FirstContact outline /></div>
+    <details class="relative ml-auto lg:hidden">
       <summary
         class="flex min-h-11 cursor-pointer list-none items-center gap-2 rounded border border-graphite-line px-3 text-[15px] text-paper"
       >
@@ -33,15 +25,10 @@ const ctaAttrs = isExternal(cta) ? { target: '_blank', rel: 'noopener' } : {}
       </summary>
       <nav
         aria-label="Mobile Navigation"
-        class="absolute right-0 top-[calc(100%+8px)] z-20 flex w-64 flex-col border border-line bg-white p-2 text-base text-graphite"
+        class="absolute right-0 top-[calc(100%+8px)] z-20 flex w-72 flex-col border border-line bg-white p-2 text-base text-graphite"
       >
         {navigation.map((item) => <a href={item.href} class="flex min-h-11 items-center px-3 hover:bg-paper">{item.label}</a>)}
-        <a
-          href={cta}
-          {...ctaAttrs}
-          class="mt-2 flex min-h-11 items-center justify-center rounded bg-graphite px-3 text-[15px] font-semibold text-paper"
-          >Erstgespräch vereinbaren</a
-        >
+        <FirstContact class="mt-2" />
       </nav>
     </details>
   </div>

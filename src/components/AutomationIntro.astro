@@ -1,0 +1,19 @@
+---
+import { automationIntro } from '../data/site.ts'
+
+const answerWords = automationIntro.answer.replace(/\.$/, '').split(' ')
+const lastWord = answerWords.pop()
+---
+
+<div id="automatisierung" class="-mx-5 grid items-center gap-x-12 gap-y-8 bg-graphite px-5 py-14 text-paper sm:-mx-8 sm:px-8 lg:grid-cols-[1.3fr_1fr] lg:py-18">
+  <h3 class="stretch-display hyphens-manual m-0 text-[clamp(3rem,5.3vw,4.875rem)] font-extrabold leading-[1.02] tracking-[-0.035em] text-balance">
+    <span class="block">{automationIntro.question}</span>
+    <span class="mt-5 block">
+      {answerWords.join(' ')}{' '}<span class="whitespace-nowrap">{lastWord}<span data-dot aria-hidden="true" class="ml-[0.04em] inline-block size-[0.17em] rounded-full bg-mint"></span></span><span class="sr-only">.</span>
+    </span>
+  </h3>
+  <div class="flex max-w-[65ch] flex-col gap-5 text-lg leading-relaxed text-graphite-ink">
+    <p class="m-0">{automationIntro.context}</p>
+    <p class="m-0">{automationIntro.approach}</p>
+  </div>
+</div>

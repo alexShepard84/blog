@@ -9,21 +9,22 @@ test('ohne JavaScript ist nichts ausgeblendet', async () => {
   assert.equal(doc.documentElement.classList.contains('reveal-ready'), false)
 })
 
-test('CSS blendet nur aus, wenn das Skript bereit ist und Bewegung erlaubt ist', async () => {
+test('Bewegung ist optional und versteckt keine ganzen Abschnitte', async () => {
   const doc = await documentFor('index.html')
   const inline = [...doc.querySelectorAll('style')].map((style) => style.textContent)
   const files = (await readdir(distFile('_astro/'))).filter((name) => name.endsWith('.css'))
   const external = await Promise.all(files.map((name) => readDist(`_astro/${name}`)))
   const css = [...inline, ...external].join('\n')
   assert.match(css, /prefers-reduced-motion:\s*no-preference/)
-  assert.match(css, /\.reveal-ready \[data-reveal\]/)
+  assert.doesNotMatch(css, /\.reveal-ready/)
+  assert.match(css, /connect-steps/)
 })
 
-test('Skript für das Einblenden ist eingebunden', async () => {
+test('Skript für Ablauf und Menü ist eingebunden', async () => {
   const doc = await documentFor('index.html')
   const modules = [...doc.querySelectorAll('script[type="module"]')]
   const code = await Promise.all(
     modules.map((script) => (script.getAttribute('src') ? readDist(script.getAttribute('src')) : script.textContent)),
   )
-  assert.ok(code.some((source) => source.includes('reveal-ready')), 'Skript mit reveal-ready fehlt')
+  assert.ok(code.some((source) => source.includes('data-motion-once') && source.includes('Escape')), 'Skript für Ablauf und Menü fehlt')
 })
