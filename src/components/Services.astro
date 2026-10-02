@@ -27,6 +27,7 @@ const serviceGroups = [services.slice(0, 2), services.slice(2)]
                     </li>
                   ))}
                 </ul>
+                {service.detail && <a href={service.detail.href} class="inline-flex min-h-11 items-center self-start text-base underline underline-offset-4 hover:text-mint-text">{service.detail.label}</a>}
               </div>
             </li>
           ))}

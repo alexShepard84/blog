@@ -1,5 +1,5 @@
 export type NavItem = { label: string; href: string }
-export type Service = { number: string; title: string; summary: string; points: string[] }
+export type Service = { number: string; title: string; summary: string; points: string[]; detail?: { href: string; label: string } }
 export type ProcessStep = { cell: string; title: string; text: string }
 export type ProjectId = 'mobistro' | 'crew' | 'botane' | 'rtlplus' | 'charging'
 export type Project = {
@@ -14,6 +14,7 @@ export type Project = {
   imageAlt: string
   fallbackLabel: string
   url?: string
+  detail?: { href: string; label: string }
 }
 export type FaqItem = { question: string; answer: string }
 
@@ -56,7 +57,7 @@ export const navigation: NavItem[] = [
 
 export const hero = {
   greeting: 'Hallo, ich bin Alex – Softwareentwickler aus Limburg.',
-  headline: 'Mobile Apps & Web',
+  headline: 'iOS-Entwicklung und individuelle Software',
   intro:
     'Seit 2014 entwickle ich Apps für iPhone und iPad. Dazu kommen Websites und Web-Anwendungen für Unternehmen.',
   secondaryCta: 'Projekte ansehen',
@@ -67,6 +68,7 @@ export const services: Service[] = [
   {
     number: '01',
     title: 'iOS-Entwicklung',
+    detail: { href: '/ios-freelancer/', label: 'iOS-Entwicklung und Teamverstärkung' },
     summary:
       'Ich entwickle Apps für iPhone, iPad und Apple TV mit Swift und SwiftUI – als Verstärkung für Ihr Team oder für ein eigenständiges Projekt.',
     points: [
@@ -88,6 +90,7 @@ export const services: Service[] = [
   {
     number: '03',
     title: 'Automatisierung und individuelle Software',
+    detail: { href: '/software-automatisierung/', label: 'Software und Automatisierung im Detail' },
     summary:
       'Ich entwickle Anwendungen, die Daten aus Ihren Listen zusammenführen und wiederkehrende Arbeitsschritte übernehmen.',
     points: [
@@ -151,6 +154,7 @@ export const processSteps: ProcessStep[] = [
 export const projects: Project[] = [
   {
     id: 'mobistro',
+    detail: { href: '/software-automatisierung/', label: 'Mehr zur Entwicklung von Mobistro' },
     label: 'Eigenes Produkt',
     highlight: true,
     title: 'Mobistro',
@@ -189,6 +193,7 @@ export const projects: Project[] = [
   },
   {
     id: 'rtlplus',
+    detail: { href: '/ios-freelancer/', label: 'Mehr zu meiner Arbeit an RTL+' },
     label: 'Kundenprojekt · RTL Deutschland',
     highlight: false,
     title: 'RTL+',

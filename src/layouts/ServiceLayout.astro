@@ -1,0 +1,120 @@
+---
+import BaseLayout from './BaseLayout.astro'
+import ProjectMedia from '../components/ProjectMedia.astro'
+import SectionTitle from '../components/SectionTitle.astro'
+import { projects, site } from '../data/site'
+import type { ServicePage } from '../data/service-pages'
+import { mailtoHref } from '../lib/contact'
+
+interface Props { page: ServicePage }
+const { page } = Astro.props
+const project = projects.find((item) => item.id === page.reference.projectId)!
+const contactHref = mailtoHref(site.email, page.subject)
+---
+
+<BaseLayout title={page.title} description={page.description} path={page.path}>
+  <section class="bg-graphite text-paper">
+    <div class="mx-auto max-w-300 px-5 pt-6 pb-16 sm:px-8 sm:pb-20">
+      <a href="/#leistungen" class="inline-flex min-h-11 items-center text-sm text-graphite-ink underline underline-offset-4 hover:text-mint">Alle Leistungen</a>
+      <div class="mt-8 grid items-end gap-8 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-16">
+        <div class="min-w-0">
+          <h1 class="stretch-display hyphens-manual m-0 text-[clamp(2.25rem,5vw,4.5rem)] font-extrabold leading-[1.05] tracking-[-0.03em] text-balance">{page.heading}</h1>
+          <p class="mt-7 mb-0 max-w-[65ch] text-lg leading-relaxed text-graphite-ink">{page.intro}</p>
+        </div>
+        <div class="flex min-w-0 flex-col items-start gap-6 border-t border-graphite-line pt-6">
+          <p class="m-0 text-base leading-relaxed text-graphite-ink">{page.context}</p>
+          <a href={contactHref} class="contact-cta inline-flex min-h-12 items-center rounded bg-mint px-5 py-3.5 font-semibold text-graphite hover:bg-paper">{page.cta}</a>
+          <p class="m-0 text-sm text-graphite-ink">Erstgespräch kostenlos & unverbindlich · per E-Mail</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-300 px-5 py-16 sm:px-8 sm:py-22">
+      <SectionTitle>Leistungen für Ihr Projekt</SectionTitle>
+      <dl class="mt-10 mb-0 border-b border-line">
+        {page.offerings.map((item) => (
+          <div class="grid gap-4 border-t border-line py-7 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] lg:gap-16">
+            <dt class="text-2xl font-bold leading-tight">{item.title}</dt>
+            <dd class="m-0 max-w-[70ch] text-lg leading-relaxed text-graphite-soft">{item.text}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="border-y border-line">
+    <div class="mx-auto max-w-300 px-5 py-16 sm:px-8 sm:py-22">
+      <SectionTitle>{page.reference.title}</SectionTitle>
+      <div class="mt-10 grid items-start gap-10 lg:grid-cols-2 lg:gap-16">
+        <div class="min-w-0">
+          <ProjectMedia project={project} />
+          <p class="mt-3 mb-0 text-sm leading-relaxed text-muted">{project.imageAlt}</p>
+          {project.url && <a href={project.url} target="_blank" rel="noopener" class="mt-3 inline-flex min-h-11 items-center underline underline-offset-4">{new URL(project.url).host} ansehen ↗</a>}
+        </div>
+        <div class="flex min-w-0 flex-col gap-7">
+          {[
+            { title: 'Die Aufgabe', text: page.reference.situation },
+            { title: 'Mein Beitrag', text: page.reference.contribution },
+            { title: 'Die Umsetzung', text: page.reference.implementation },
+          ].map((item) => (
+            <div>
+              <h3 class="mt-0 mb-3 text-xl font-bold">{item.title}</h3>
+              <p class="m-0 max-w-[70ch] text-lg leading-relaxed text-graphite-soft">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="mt-10 border-t border-line pt-7">
+        <p class="m-0 max-w-[70ch] text-lg leading-relaxed text-graphite-soft">{page.experience}</p>
+        <a href="/#projekte" class="mt-3 inline-flex min-h-11 items-center underline underline-offset-4">Weitere Projekte ansehen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="mx-auto max-w-300 px-5 py-16 sm:px-8 sm:py-22">
+      <SectionTitle>So beginnt die Zusammenarbeit</SectionTitle>
+      <ol class="mt-10 mb-0 list-none p-0">
+        {page.steps.map((step, index) => (
+          <li class="grid gap-3 border-t border-line py-7 sm:grid-cols-[2rem_minmax(0,1fr)] sm:gap-5">
+            <span class="font-mono text-base text-muted" aria-hidden="true">{index + 1}.</span>
+            <div>
+              <h3 class="mt-0 mb-3 text-xl font-bold">{step.title}</h3>
+              <p class="m-0 max-w-[70ch] text-lg leading-relaxed text-graphite-soft">{step.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="border-t border-line">
+    <div class="mx-auto grid max-w-300 items-start gap-10 px-5 py-16 sm:px-8 sm:py-22 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] lg:gap-16">
+      <SectionTitle>Häufige Fragen</SectionTitle>
+      <dl class="m-0 flex min-w-0 flex-col gap-8">
+        {page.questions.map((item) => (
+          <div>
+            <dt class="mb-3 text-xl font-bold">{item.question}</dt>
+            <dd class="m-0 max-w-[70ch] text-lg leading-relaxed text-graphite-soft">{item.answer}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="bg-graphite text-paper">
+    <div class="mx-auto grid max-w-300 items-start gap-10 px-5 py-16 sm:px-8 sm:py-22 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <SectionTitle>{page.cta}</SectionTitle>
+        <p class="mt-6 mb-6 max-w-[65ch] text-lg leading-relaxed text-graphite-ink">{page.contactText}</p>
+        <a href={contactHref} class="contact-cta inline-flex min-h-12 items-center rounded bg-mint px-5 py-3.5 font-semibold text-graphite hover:bg-paper">E-Mail an Alexander Schäfer</a>
+      </div>
+      <div class="border-t border-graphite-line pt-6">
+        <p class="m-0 max-w-[65ch] text-lg leading-relaxed text-graphite-ink">{page.related.text}</p>
+        <a href={page.related.href} class="mt-4 inline-flex min-h-11 items-center text-mint underline underline-offset-4 hover:text-paper">{page.related.label}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

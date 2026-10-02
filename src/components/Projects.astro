@@ -24,6 +24,7 @@ import { projects } from '../data/site.ts'
               <summary class="flex min-h-11 w-fit cursor-pointer items-center gap-2 underline underline-offset-4">Technische Details</summary>
               <p class="mt-2 mb-0 leading-relaxed">{project.meta.join(' · ')}</p>
             </details>
+            {project.detail && <a href={project.detail.href} class="inline-flex min-h-11 items-center self-start text-sm underline underline-offset-4 hover:text-mint-text">{project.detail.label}</a>}
             {project.url && (
               <a href={project.url} target="_blank" rel="noopener" class="inline-flex min-h-11 items-center self-start text-sm underline underline-offset-4">
                 {new URL(project.url).host} ansehen ↗

@@ -8,7 +8,7 @@ test('Hero: genau eine H1 mit der Kernbotschaft und Mint-Punkt', async () => {
   const doc = await documentFor('index.html')
   const headings = doc.querySelectorAll('h1')
   assert.equal(headings.length, 1)
-  assert.equal(text(headings[0]), 'Mobile Apps & Web')
+  assert.equal(text(headings[0]), 'iOS-Entwicklung und individuelle Software')
   assert.equal(headings[0].querySelector('[data-dot]')?.getAttribute('aria-hidden'), 'true')
   // Kernbotschaft auch auf schmalen Bildschirmen nicht automatisch trennen.
   assert.ok(headings[0].classList.contains('hyphens-manual'), 'H1 wird automatisch getrennt')
