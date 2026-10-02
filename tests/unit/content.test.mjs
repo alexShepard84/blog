@@ -12,7 +12,7 @@ test('Inhalte enthalten keine privaten Angaben oder Platzhalter', () => {
 test('vier Leistungen in fester Reihenfolge', () => {
   assert.deepEqual(
     content.services.map((service) => service.title),
-    ['KI-Beratung', 'Automatisierung und individuelle Software', 'Web-Entwicklung', 'iOS-Entwicklung'],
+    ['iOS-Entwicklung', 'Web-Entwicklung', 'Automatisierung und individuelle Software', 'KI-Beratung'],
   )
 })
 
@@ -23,8 +23,9 @@ test('fünf Projekte mit eindeutigen IDs in fester Reihenfolge', () => {
   )
 })
 
-test('genau ein Ablaufschritt ist aktiv', () => {
-  assert.equal(content.processSteps.filter((step) => step.active).length, 1)
+test('der erklärte Ablauf hat vier Schritte und keinen aktuellen Bearbeitungsstatus', () => {
+  assert.equal(content.processSteps.length, 4)
+  assert.ok(content.processSteps.every((step) => !('active' in step)))
 })
 
 test('FAQ beantwortet fünf Fragen, eine davon zur Region', () => {
